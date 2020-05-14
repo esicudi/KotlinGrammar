@@ -13,7 +13,8 @@ import
 importList
 	: import*;
 code
-	: newFunction;
+	: newFunction
+	| newVariable;
 newFunction
 	: FUN NAME functionParameters (':' type)? (functionBody)?;
 functionParameters
@@ -46,10 +47,14 @@ whileStatement
 whenExpression
 	: 'when' '(' expression ')' '{' whenEntry* '}';
 whenEntry
-	: whenCondition '->' 
-	| 'else' '->' 
+	: whenCondition '->' (block | statement)
+	| 'else' '->' (block | statement);
 whenCondition
 	:
+rangeExpression
+	: expression ('..' expresion);
+progression
+	: (rangeExpression | expression 'downTo' expression) 'step' expression;
 variableName
 	: NAME (':' type)?;
 

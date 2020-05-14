@@ -19,7 +19,7 @@ newFunction
 	: FUN NAME functionParameters (':' type)? (functionBody)?;
 functionParameters
 	: '(' (functionParameter (',' functionParameter)?)? ')';
-parameter
+functionParameter
 	: NAME ':' type;
 type
 	: NAME;
@@ -55,6 +55,16 @@ rangeExpression
 	: expression ('..' expresion);
 progression
 	: (rangeExpression | expression 'downTo' expression) 'step' expression;
+newClass
+	: ('class' | 'interface') NAME '(' (classParameter (',' classParameter)*)? ')' (':' delegation (',' delegation)?)? classBody;
+classParameter
+	: ('val' | 'var') NAME ':' type;
+classBody
+	: '{' classMember* '}';
+classMember
+	:
+delegation
+	:
 variableName
 	: NAME (':' type)?;
 

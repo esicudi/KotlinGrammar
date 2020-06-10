@@ -217,6 +217,46 @@ public interface KotlinListener extends ParseTreeListener {
 	 */
 	void exitConditionExpression(KotlinParser.ConditionExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link KotlinParser#conditionIf}.
+	 * @param ctx the parse tree
+	 */
+	void enterConditionIf(KotlinParser.ConditionIfContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KotlinParser#conditionIf}.
+	 * @param ctx the parse tree
+	 */
+	void exitConditionIf(KotlinParser.ConditionIfContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KotlinParser#conditionElseIf}.
+	 * @param ctx the parse tree
+	 */
+	void enterConditionElseIf(KotlinParser.ConditionElseIfContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KotlinParser#conditionElseIf}.
+	 * @param ctx the parse tree
+	 */
+	void exitConditionElseIf(KotlinParser.ConditionElseIfContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KotlinParser#conditionElse}.
+	 * @param ctx the parse tree
+	 */
+	void enterConditionElse(KotlinParser.ConditionElseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KotlinParser#conditionElse}.
+	 * @param ctx the parse tree
+	 */
+	void exitConditionElse(KotlinParser.ConditionElseContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KotlinParser#inConditionExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterInConditionExpression(KotlinParser.InConditionExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KotlinParser#inConditionExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitInConditionExpression(KotlinParser.InConditionExpressionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link KotlinParser#loop}.
 	 * @param ctx the parse tree
 	 */

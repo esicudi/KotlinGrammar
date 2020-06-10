@@ -71,7 +71,16 @@ num
 minusNum
 	: '-' num;
 conditionExpression
-	: IF '(' condition ')' ( '{' (expression | assignment | conditionExpression | loop | when)* returnVal? '}' | (expression | assignment | when | returnVal)) (ELSE IF '(' condition ')' ('{' (expression | assignment | conditionExpression | loop | when) returnVal? '}' | (expression | assignment | when | returnVal)))* (ELSE ('{' (expression | assignment | conditionExpression | loop | when)* returnVal? '}' | (expression | assignment | when | returnVal)))?;
+	: conditionIf (conditionElseIf)* (conditionElse)?;
+conditionIf
+	: IF '(' condition ')' inConditionExpression;
+conditionElseIf
+	: ELSE IF '(' condition ')' inConditionExpression;
+conditionElse
+	: ELSE inConditionExpression inConditionExpression;
+inConditionExpression
+	: '{' (expression | assignment | conditionExpression | loop | when)* returnVal? '}'
+	| (expression | assignment | when | returnVal);
 loop
 	: FOR '(' NAME ('!')? IN range ')' '{' (expression | assignment | conditionExpression | loop | when | returnVal)* '}'
 	| WHILE '(' condition ')' '{' (expression | assignment | conditionExpression | loop | when | returnVal)* '}';

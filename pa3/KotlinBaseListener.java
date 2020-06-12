@@ -27,6 +27,18 @@ public class KotlinBaseListener implements KotlinListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCodes(KotlinParser.CodesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCodes(KotlinParser.CodesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPackageHeader(KotlinParser.PackageHeaderContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -46,6 +58,18 @@ public class KotlinBaseListener implements KotlinListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitImportHeader(KotlinParser.ImportHeaderContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHeaderName(KotlinParser.HeaderNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHeaderName(KotlinParser.HeaderNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -231,6 +255,18 @@ public class KotlinBaseListener implements KotlinListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunctionName(KotlinParser.FunctionNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionName(KotlinParser.FunctionNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNum(KotlinParser.NumContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -327,6 +363,18 @@ public class KotlinBaseListener implements KotlinListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLoopBody(KotlinParser.LoopBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLoopBody(KotlinParser.LoopBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterWhen(KotlinParser.WhenContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -339,6 +387,18 @@ public class KotlinBaseListener implements KotlinListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterWhenBody(KotlinParser.WhenBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhenBody(KotlinParser.WhenBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterWhenExpression(KotlinParser.WhenExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -346,6 +406,18 @@ public class KotlinBaseListener implements KotlinListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitWhenExpression(KotlinParser.WhenExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhenElseExpression(KotlinParser.WhenElseExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhenElseExpression(KotlinParser.WhenElseExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -370,6 +442,18 @@ public class KotlinBaseListener implements KotlinListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNewClass(KotlinParser.NewClassContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterClassBody(KotlinParser.ClassBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitClassBody(KotlinParser.ClassBodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

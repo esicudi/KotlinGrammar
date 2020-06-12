@@ -16,6 +16,12 @@ public interface KotlinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProg(KotlinParser.ProgContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link KotlinParser#codes}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCodes(KotlinParser.CodesContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link KotlinParser#packageHeader}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -27,6 +33,12 @@ public interface KotlinVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitImportHeader(KotlinParser.ImportHeaderContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KotlinParser#headerName}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHeaderName(KotlinParser.HeaderNameContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link KotlinParser#code}.
 	 * @param ctx the parse tree
@@ -118,6 +130,12 @@ public interface KotlinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction(KotlinParser.FunctionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link KotlinParser#functionName}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionName(KotlinParser.FunctionNameContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link KotlinParser#num}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -166,17 +184,35 @@ public interface KotlinVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLoop(KotlinParser.LoopContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link KotlinParser#loopBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoopBody(KotlinParser.LoopBodyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link KotlinParser#when}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitWhen(KotlinParser.WhenContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link KotlinParser#whenBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhenBody(KotlinParser.WhenBodyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link KotlinParser#whenExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitWhenExpression(KotlinParser.WhenExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KotlinParser#whenElseExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhenElseExpression(KotlinParser.WhenElseExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link KotlinParser#range}.
 	 * @param ctx the parse tree
@@ -189,6 +225,12 @@ public interface KotlinVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNewClass(KotlinParser.NewClassContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link KotlinParser#classBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClassBody(KotlinParser.ClassBodyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link KotlinParser#newInterface}.
 	 * @param ctx the parse tree

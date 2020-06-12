@@ -10,20 +10,58 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 @SuppressWarnings("deprecation")
-public class Kotlin2Java extends KotlinBaseVisitor<String> implements KotlinVisitor<String> {
+public class Kotlin2Java {
 
-	public static String fileName = "output";
-	public static String result = "";
-	public static String parameters = "";
+	
 
-	public static void setFileName(String name) {
-		fileName = name;
+	public static void main(String[] args) throws IOException {
+
+		File fi = new File(args[0]);
+		FileInputStream fin = new FileInputStream(fi);
+
+		String s;
+		s = args[1];
+		s = s.substring(1, s.length() - 1);
+		s = "./" + s;
+		File fo = new File(s);
+		FileOutputStream fout = new FileOutputStream(fo);
+
+		Kotlin2JavaVisitor visitor = new Kotlin2JavaVisitor();
+		visitor.setFileName(s.substring(2, s.length() - 5));
+
+		ANTLRInputStream input = new ANTLRInputStream(fin);
+		KotlinLexer lexer = new KotlinLexer(input);
+		KotlinParser parser = new KotlinParser(new CommonTokenStream(lexer));
+		KotlinParser.ProgContext tree = parser.prog();
+		String result = visitor.visit(tree);
+
+		if (result == null) {
+			result = "null";
+		}
+		OutputStream out = new FileOutputStream(fo);
+		byte[] by = result.getBytes();
+		out.write(by);
+
+	}
+
+}
+
+class Kotlin2JavaVisitor extends KotlinBaseVisitor<String> implements KotlinVisitor<String>{
+	public String fileName = "output";
+	public String result = "";
+	public String parameters = "";
+	public String term = "";
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	@Override
 	public String visitProg(KotlinParser.ProgContext ctx) {
-		this.visit(ctx.packageHeader());
-		this.visit(ctx.importHeader());
+		if(ctx.packageHeader() != null)
+			this.visit(ctx.packageHeader());
+		if(ctx.importHeader() != null)
+			this.visit(ctx.importHeader());
 		result += "\npublic class " + fileName + " {\n";
 		this.visit(ctx.codes());
 		result += "}";
@@ -114,7 +152,7 @@ public class Kotlin2Java extends KotlinBaseVisitor<String> implements KotlinVisi
 		 */
 		result += "public static ";
 		// main function
-		if (ctx.NAME().getText() == "main") {
+		if (ctx.NAME().getText().equals("main")) {
 			result += "void main(String[] args) {\n";
 			this.visit(ctx.functionBody());
 			result += "\n}\n";
@@ -140,6 +178,7 @@ public class Kotlin2Java extends KotlinBaseVisitor<String> implements KotlinVisi
 			result += ctx.NAME() + "(";
 			if (ctx.parameters() != null) {
 				result += this.visit(ctx.parameters());
+
 			}
 			result += ") {\n";
 			this.visit(ctx.functionBody());
@@ -302,6 +341,7 @@ public class Kotlin2Java extends KotlinBaseVisitor<String> implements KotlinVisi
 		} // condition ('!')? IN range
 		else if (ctx.IN() != null) {
 			result += "Object " + ctx.NAME() + " : ";
+			term = ctx.NAME();
 			this.visit(ctx.range());
 		} else
 			result += ctx.getText();
@@ -310,12 +350,17 @@ public class Kotlin2Java extends KotlinBaseVisitor<String> implements KotlinVisi
 
 	@Override
 	public String visitFunction(KotlinParser.FunctionContext ctx) {
-		if (ctx.NAME().equals("println") || ctx.NAME().equals("print"))
+		if (ctx.functionName().getText().equals("println"))
 			result += "System.out.";
-		result += ctx.NAME() + "(";
+		result += this.visit(ctx.functionName()) + "(";
 		this.visitChildren(ctx);
 		result += ");\n";
 		return "";
+	}
+
+	@Override
+	public String visitFunctionName(KotlinParser.FunctionNameContext ctx) {
+		return ctx.getText();
 	}
 
 	@Override
@@ -378,9 +423,15 @@ public class Kotlin2Java extends KotlinBaseVisitor<String> implements KotlinVisi
 		else
 			result += "while(";
 		this.visit(ctx.condition());
-		result += " {\n";
-		this.visitChildren(ctx);
+		result += ") {\n";
+		this.visit(ctx.loopBody());
 		result += "}\n";
+		return "";
+	}
+
+	@Override
+	public String visitLoopBody(KotlinParser.LoopBodyContext ctx) {
+		this.visitChildren(ctx);
 		return "";
 	}
 
@@ -433,12 +484,8 @@ public class Kotlin2Java extends KotlinBaseVisitor<String> implements KotlinVisi
 
 	@Override
 	public String visitRange(KotlinParser.RangeContext ctx) {
-		if (ctx.toString().contains("..") || ctx.toString().contains("downTo")) {
-			if (ctx.STEP() != null) {
-
-			}
-		}
-		return visitChildren(ctx);
+		result += ctx.getText();
+		return "";
 	}
 
 	@Override
@@ -460,34 +507,4 @@ public class Kotlin2Java extends KotlinBaseVisitor<String> implements KotlinVisi
 	public String visitLambda(KotlinParser.LambdaContext ctx) {
 		return visitChildren(ctx);
 	}
-
-	public static void main(String[] args) throws IOException {
-
-		File fi = new File(args[0]);
-		FileInputStream fin = new FileInputStream(fi);
-
-		String s;
-		s = "./" + args[1];
-		File fo = new File(s);
-		FileOutputStream fout = new FileOutputStream(fo);
-
-		setFileName(s.substring(2, s.length() - 5));
-
-		ANTLRInputStream input = new ANTLRInputStream(fin);
-		KotlinLexer lexer = new KotlinLexer(input);
-		KotlinParser parser = new KotlinParser(new CommonTokenStream(lexer));
-		KotlinParser.ProgContext tree = parser.prog();
-		KotlinBaseVisitor<String> visitor = new KotlinBaseVisitor();
-		// KotlinVisitor visitor = new KotlinVisitor();
-		String result = visitor.visit(tree);
-
-		if (result == null) {
-			result = "null";
-		}
-		OutputStream out = new FileOutputStream(fo);
-		byte[] by = result.getBytes();
-		out.write(by);
-
-	}
-
 }

@@ -17,6 +17,16 @@ public interface KotlinListener extends ParseTreeListener {
 	 */
 	void exitProg(KotlinParser.ProgContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link KotlinParser#codes}.
+	 * @param ctx the parse tree
+	 */
+	void enterCodes(KotlinParser.CodesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KotlinParser#codes}.
+	 * @param ctx the parse tree
+	 */
+	void exitCodes(KotlinParser.CodesContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link KotlinParser#packageHeader}.
 	 * @param ctx the parse tree
 	 */
@@ -36,6 +46,16 @@ public interface KotlinListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitImportHeader(KotlinParser.ImportHeaderContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KotlinParser#headerName}.
+	 * @param ctx the parse tree
+	 */
+	void enterHeaderName(KotlinParser.HeaderNameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KotlinParser#headerName}.
+	 * @param ctx the parse tree
+	 */
+	void exitHeaderName(KotlinParser.HeaderNameContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link KotlinParser#code}.
 	 * @param ctx the parse tree
@@ -187,6 +207,16 @@ public interface KotlinListener extends ParseTreeListener {
 	 */
 	void exitFunction(KotlinParser.FunctionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link KotlinParser#functionName}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionName(KotlinParser.FunctionNameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KotlinParser#functionName}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionName(KotlinParser.FunctionNameContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link KotlinParser#num}.
 	 * @param ctx the parse tree
 	 */
@@ -267,6 +297,16 @@ public interface KotlinListener extends ParseTreeListener {
 	 */
 	void exitLoop(KotlinParser.LoopContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link KotlinParser#loopBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoopBody(KotlinParser.LoopBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KotlinParser#loopBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoopBody(KotlinParser.LoopBodyContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link KotlinParser#when}.
 	 * @param ctx the parse tree
 	 */
@@ -277,6 +317,16 @@ public interface KotlinListener extends ParseTreeListener {
 	 */
 	void exitWhen(KotlinParser.WhenContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link KotlinParser#whenBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhenBody(KotlinParser.WhenBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KotlinParser#whenBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhenBody(KotlinParser.WhenBodyContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link KotlinParser#whenExpression}.
 	 * @param ctx the parse tree
 	 */
@@ -286,6 +336,16 @@ public interface KotlinListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitWhenExpression(KotlinParser.WhenExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KotlinParser#whenElseExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhenElseExpression(KotlinParser.WhenElseExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KotlinParser#whenElseExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhenElseExpression(KotlinParser.WhenElseExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link KotlinParser#range}.
 	 * @param ctx the parse tree
@@ -306,6 +366,16 @@ public interface KotlinListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNewClass(KotlinParser.NewClassContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link KotlinParser#classBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterClassBody(KotlinParser.ClassBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link KotlinParser#classBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitClassBody(KotlinParser.ClassBodyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link KotlinParser#newInterface}.
 	 * @param ctx the parse tree

@@ -68,7 +68,9 @@ condition
 	| NAME ('!')? IS type
 	| NAME ('!')? IN range;
 function
-	: (NAME '.')* NAME '(' (expression (',' expression)*)?')';
+	:  functionName '(' (expression (',' expression)*)?')';
+functionName
+	: (NAME '.')* NAME;
 num
 	: INT
 	| REAL;
@@ -86,8 +88,10 @@ inConditionExpression
 	: '{' (expression | assignment | conditionExpression | loop | when)* returnVal? '}'
 	| (expression | assignment | when | returnVal);
 loop
-	: FOR '(' condition ')' '{' (expression | assignment | conditionExpression | loop | when | returnVal)* '}'
-	| WHILE '(' condition ')' '{' (expression | assignment | conditionExpression | loop | when | returnVal)* '}';
+	: FOR '(' condition ')' '{' loopBody '}'
+	| WHILE '(' condition ')' '{' loopBody '}';
+loopBody
+	: (expression | assignment | conditionExpression | loop | when | returnVal)*;
 when
 	: WHEN ('(' expression ')')? whenBody;
 whenBody
@@ -99,13 +103,15 @@ whenExpression
 whenElseExpression
 	: (ELSE ARROW expression);
 range
-	: ('0..' | '1..' | '2..' | '3..' | '4..' | '5..' | '6..' | '7..' | '8..' | '9..' | '10..') expression (STEP INT)?
-	| expression '..' expression (STEP INT)?
+	: //('0..' | '1..' | '2..' | '3..' | '4..' | '5..' | '6..' | '7..' | '8..' | '9..' | '10..') expression (STEP INT)?
+	 LP_RANGE expression (STEP INT)?
 	| expression 'downTo' expression (STEP INT)?
 	| NAME '.' NAME
 	| NAME;
 newClass
-	: (prefixDef CLASS | CLASS) NAME '(' parameters ')' (COLON NAME ('(' (expression (',' expression)*)? ')')? (',' NAME ('(' (expression (',' expression)*)? ')')? )* )? '{' (assignment ','? | newFunction ','?)* '}';
+	: (prefixDef CLASS | CLASS) NAME '(' parameters ')' (COLON NAME ('(' (expression (',' expression)*)? ')')? (',' NAME ('(' (expression (',' expression)*)? ')')? )* )? '{' classBody '}';
+classBody
+	: (assignment ','? | newFunction ','?)*;
 newInterface
 	: INTERFACE NAME '{' (assignment ','? | newFunction ','?)* '}';
 newComment
@@ -116,6 +122,7 @@ lambda
 // lexer rule
 PACKAGE: 'package';
 IMPORT: 'import';
+LP_RANGE: INT+[.][.];
 FUN: 'fun';
 RETURN: 'return';
 NULL: 'null';

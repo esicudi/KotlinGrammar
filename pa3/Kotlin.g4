@@ -3,11 +3,15 @@ grammar Kotlin;
 
 // parser rule
 prog
-	: packageHeader? importHeader? code*;
+	: packageHeader? importHeader? codes;
+codes
+	: code*;
 packageHeader
-	: PACKAGE NAME ('.' NAME)*;
+	: PACKAGE headerName;
 importHeader
-	: IMPORT NAME ('.' NAME)* ('.*')?;
+	: IMPORT headerName?;
+headerName
+	: NAME ('.' NAME)* ('.*')?;
 code
 	: newFunction
 	| newVal
@@ -29,7 +33,7 @@ multitype
 	: MultiType LANGLE SingleType RANGLE;
 
 newFunction
-	: (prefixDef FUN | FUN) NAME '(' parameters? ')' (COLON type ('?')?)? functionBody?;
+	: (prefixDef FUN | FUN) NAME '(' parameters? ')' (COLON type (nullable='?')?)? functionBody?;
 functionBody
 	: '{' (expression | assignment | condition | conditionExpression | loop | when | returnVal)* returnVal?'}'
 	| '=' (expression | conditionExpression | when | condition);
@@ -62,7 +66,7 @@ condition
 	| expression
 	| '(' condition ')'
 	| NAME ('!')? IS type
-	| condition ('!')? IN range;
+	| NAME ('!')? IN range;
 function
 	: (NAME '.')* NAME '(' (expression (',' expression)*)?')';
 num
@@ -77,19 +81,23 @@ conditionIf
 conditionElseIf
 	: ELSE IF '(' condition ')' inConditionExpression;
 conditionElse
-	: ELSE inConditionExpression inConditionExpression;
+	: ELSE inConditionExpression;
 inConditionExpression
 	: '{' (expression | assignment | conditionExpression | loop | when)* returnVal? '}'
 	| (expression | assignment | when | returnVal);
 loop
-	: FOR '(' NAME ('!')? IN range ')' '{' (expression | assignment | conditionExpression | loop | when | returnVal)* '}'
+	: FOR '(' condition ')' '{' (expression | assignment | conditionExpression | loop | when | returnVal)* '}'
 	| WHILE '(' condition ')' '{' (expression | assignment | conditionExpression | loop | when | returnVal)* '}';
 when
-	: WHEN ('(' expression ')')? '{' whenExpression+ (ELSE ARROW expression)? '}';
+	: WHEN ('(' expression ')')? whenBody;
+whenBody
+	: '{' whenExpression+ whenElseExpression? '}';
 whenExpression
 	: expression (',' expression)* ARROW (expression | returnVal)
 	| expression? ('!')? IN range ARROW (expression | returnVal)
 	| expression? ('!')? IS type ARROW (expression | returnVal);
+whenElseExpression
+	: (ELSE ARROW expression);
 range
 	: ('0..' | '1..' | '2..' | '3..' | '4..' | '5..' | '6..' | '7..' | '8..' | '9..' | '10..') expression (STEP INT)?
 	| expression '..' expression (STEP INT)?

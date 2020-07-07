@@ -1,23 +1,27 @@
-/* Expr.g4 extended */
+/* Expr.g4 extended -Modify this for PA#1 */
 grammar Expr;
 
-//parser rules
-prog  : (assn ';' NEWLINE? | expr ';' NEWLINE?)*;
-expr  : expr ('*'|'/') expr
-      | expr ('+'|'-') expr
-      | num
-      | ID
-      | '(' expr ')'
+// parser rules
+prog  : (assen ';' NEWLINE? | expr ';' NEWLINE?)*;
+expr  : expr op=('*'|'/') expr	# MulDiv
+      | expr op=('+'|'-') expr	# AddSub
+      | num			# IntReal
+      | ID			# Id
+      | '(' expr ')'		# Parens
       ;
-assn  : ID '=' num
+assen : ID '=' num
       ;
 num   : INT
       | REAL
       ;
 
-//lexer rules
+// lexer rules
 NEWLINE: [\r\n]+ ;
-INT: ('+'|'-')? [0-9]+ ;
-REAL: ('+'|'-')? [0-9]+'.'+[0-9]* ;
+MUL: '*';
+DIV: '/';
+ADD: '+';
+SUB: '-';
+INT: ('+'|'-')? [0-9]+ ;		// should handle negatives
+REAL: ('+'|'-')? [0-9]+'.'+[0-9]* ;	// should handle signs(+/-)
 ID: [a-zA-Z]+ ;
-WS: [ \t\r\n]+ -> skip ;
+WS: [ \t\r\n]+ -> skip;
